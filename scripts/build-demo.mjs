@@ -45,6 +45,8 @@ const strictConfig=[
 " const META_PREFIX=cfg.cloudMetaPrefix||'tanques-standalone-demo-meta';",
 " const PROFILE_PREFIX=cfg.cloudProfilePrefix||'tanques-standalone-demo';",
 " const IS_STAGING=cfg.env==='staging';",
+" const MEMBER_CACHE_PREFIX='tanques-standalone-demo-member:'+(cfg.idbName||'cdt_standalone_demo_v1')+':';",
+" const EDIT_LOCK_NAME='tanques-standalone-demo-edit-session:'+(cfg.idbName||'cdt_standalone_demo_v1');",
 " const STAGING_HOST='"+staging+".supabase.co';",
 " function assertStagingIsolation(){",
 "  if(!IS_STAGING||!PROJECT_URL||!KEY)throw Error('DEMO bloqueada: configuración staging obligatoria');",
@@ -94,6 +96,8 @@ let sw=read('demo/sw.js').replaceAll('../','./');
 sw=sw.replaceAll('control-tanques-staging-','control-tanques-standalone-demo-');
 put('sw.js',sw);
 put('version.json',read('demo/version.json'));
+copy('demo/assistant-a.js','assistant-a.js');
+copy('demo/assistant-a.css','assistant-a.css');
 put('.nojekyll','');
 
 // Recursos estrictamente necesarios (sin descargar datos de producción).
@@ -107,9 +111,11 @@ for(const name of [
 // Las aplicaciones GitHub Pages bajo el mismo usuario comparten ORIGEN.
 // Esta DEMO usa otros nombres de caché, IndexedDB, Auth y lock.
 const forbidden=['oevetnszmfxeukcncwji','BARALLETE','240.61','YOUR_STAGING','real-opening-2026'];
-const texts=['config.js','cloud-sync.js','app.js','sw.js','index.html','manifest.webmanifest','version.json'];
+const texts=['config.js','cloud-sync.js','app.js','sw.js','index.html','manifest.webmanifest','version.json','assistant-a.js','assistant-a.css'];
 for(const file of texts){const data=readFileSync(join(output,file),'utf8');for(const marker of forbidden)must(!data.includes(marker),'contenido prohibido en '+file);}
 must(index.includes('script src="config.js"'),'no carga primero su configuración');
+must(index.includes('assistant-a.js?v=1')&&index.includes('assistant-a.css?v=1'),'opción A no está habilitada');
+must(sw.includes('assistant-a.js?v=1')&&sw.includes('assistant-a.css?v=1'),'PWA no cachea opción A');
 must(config.includes("idbName:'cdt_standalone_demo_v1'"),'almacenamiento no aislado');
 must(cloud.includes("tanques-standalone-demo-edit-session"),'bloqueo compartido');
 must(sw.includes('control-tanques-standalone-demo-'),'caché no aislada');
