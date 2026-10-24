@@ -71,9 +71,12 @@ jobs:
           cp -a _site/. /tmp/tanques-a-deploy/
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # El checkout del repositorio fuente no forma parte del sitio.
+          # Borrar la copia con su .git antes de publicar los archivos aislados.
+          rm -rf _source
           git switch --orphan gh-pages
           git rm -rf . >/dev/null 2>&1 || true
-          git clean -fdx >/dev/null 2>&1 || true
+          git clean -ffdx >/dev/null 2>&1 || true
           cp -a /tmp/tanques-a-deploy/. .
           git add -A
           git commit -m 'deploy: Control de Tanques DEMO opcion A validada'
