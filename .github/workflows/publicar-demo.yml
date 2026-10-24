@@ -1,0 +1,81 @@
+name: Publicar DEMO opción A aislada
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build-demo.mjs'
+      - '.github/workflows/publicar-demo.yml'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: demo-a-pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Descargar repositorio DEMO
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Descargar versión exacta y probada de la opción A
+        uses: actions/checkout@v4
+        with:
+          repository: josegude-ux/control-de-tanques
+          ref: 63968c8cc7fadd69f5e553ba7e846e801e0e70d4
+          path: _source
+          persist-credentials: false
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generar sólo archivos de DEMO
+        run: node scripts/build-demo.mjs
+
+      - name: Comprobar publicación separada
+        run: |
+          test -s _site/index.html
+          test -s _site/assistant-a.js
+          test -s _site/assistant-a.css
+          test -s _site/sw.js
+          test -s _site/cloud-sync.js
+          test -s _site/config.js
+          node --check _site/cloud-sync.js
+          node --check _site/app.js
+          node --check _site/assistant-a.js
+          if grep -RE 'oevetnszmfxeukcncwji|PENDING_BARALLETE|PROD_URL|YOUR_STAGING' _site --include='*.js' --include='*.html' --include='*.json' --exclude='supabase-2.57.4.js'; then
+            echo 'ERROR: se detectó configuración no permitida'
+            exit 1
+          fi
+          grep -q 'iuqmzpahyjganhppcsur.supabase.co' _site/config.js
+          grep -q 'assistant-a.js?v=1' _site/index.html
+          grep -q 'assistant-a.css?v=1' _site/sw.js
+          echo 'DEMO_A_READY · comprobaciones OK'
+
+      - name: Publicar archivos estáticos en gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/tanques-a-deploy
+          cp -a _site/. /tmp/tanques-a-deploy/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --orphan gh-pages
+          git rm -rf . >/dev/null 2>&1 || true
+          git clean -fdx >/dev/null 2>&1 || true
+          cp -a /tmp/tanques-a-deploy/. .
+          git add -A
+          git commit -m 'deploy: Control de Tanques DEMO opcion A validada'
+          git push --force origin HEAD:gh-pages
+          echo 'Archivos DEMO publicados en rama gh-pages. Activar Pages desde Settings > Pages cuando sea necesario.'
