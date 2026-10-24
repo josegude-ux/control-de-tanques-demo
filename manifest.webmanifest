@@ -1,0 +1,23 @@
+{
+  "name": "Control de Tanques · DEMO staging",
+  "short_name": "Tanques DEMO",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e8f5f0",
+  "theme_color": "#1a5f4a",
+  "icons": [
+    {
+      "src": "./Control_de_Tanques_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./Control_de_Tanques_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

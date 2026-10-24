@@ -1,0 +1,6 @@
+{
+  "version": "0.10.1",
+  "environment": "staging",
+  "label": "Control de Tanques DEMO",
+  "notes": "Staging aislado con datos ficticios; sincronización automática y planificación por vehículo."
+}

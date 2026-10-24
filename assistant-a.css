@@ -1,0 +1,61 @@
+/* Control de Tanques · experiencia A / entorno staging exclusivamente */
+.assistant-a{max-width:680px;margin-inline:auto}
+.assistant-a [hidden]{display:none!important}
+.assistant-head,.assistant-landing{--assistant-ink:#24302e;--assistant-green:#155e4e;color:var(--assistant-ink)}
+.assistant-head{padding:20px 0 12px}
+.assistant-eyebrow{font-size:12px;font-weight:850;letter-spacing:.10em;text-transform:uppercase;color:#57736b;margin-bottom:12px}
+.assistant-head h2,.assistant-landing h2{font-size:clamp(28px,6vw,36px);letter-spacing:-.06em;line-height:1.11;margin:0 0 12px;color:#233b34}
+.assistant-head p,.assistant-landing>.assistant-head p{font-size:16px;color:#5c6863;margin:0 0 22px;line-height:1.5}
+.assistant-landing{background:#fff;border:1px solid #e1e6df;border-radius:24px;padding:clamp(21px,5vw,32px);box-shadow:0 12px 35px #213c3214}
+.assistant-landing>.assistant-head{padding:0}
+.assistant-vehicle{display:grid;gap:8px;font-weight:750;color:#3c4d46;margin:24px 0 18px;font-size:15px}
+.assistant-vehicle select{border:1px solid #cbd6d0;border-radius:16px;padding:16px;font-size:18px;width:100%;min-height:55px;color:#1d3029;background:#fff}
+.assistant-tank-summary{border-radius:19px;padding:20px;background:#f2f7f4;margin:0 0 19px}
+.assistant-total-label{text-transform:uppercase;letter-spacing:.08em;color:#57736b;font-size:12px;font-weight:800}
+.assistant-total{font-size:clamp(39px,10vw,54px);line-height:1.2;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:#215d4a;font-weight:850;padding:6px 0 13px}
+.assistant-total small{font-size:20px;font-weight:650;letter-spacing:normal}
+.assistant-stockrow{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #d7e4db;padding:10px 0;font-size:15px}
+.assistant-stockrow strong{font-variant-numeric:tabular-nums;color:#233b34}
+.assistant-primary,.assistant-choice{width:100%;background:#155e4e;color:#fff;border:0;border-radius:17px;min-height:65px;padding:16px 20px;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.assistant-primary:disabled{opacity:.5}
+.assistant-hint{font-size:13px;line-height:1.5;color:#62716a;text-align:center;margin:16px 0 2px}
+.assistant-success,.assistant-warning,.assistant-current{padding:13px 16px;margin:12px 0;border-radius:14px;background:#e8f5ec;color:#1b6541;font-weight:700;font-size:14px}
+.assistant-warning{background:#fff4d8;color:#76520a}
+.assistant-current{background:#e9f1fb;color:#214b7c}
+.assistant-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:23px 0 11px}
+.assistant-progress span{height:7px;border-radius:10px;background:#dbe6df}
+.assistant-progress span.is-active{background:#18705a}
+.assistant-count{text-align:right;font-size:13px;font-weight:750;color:#5b6f66}
+.assistant-form-screen>h2.heading{display:none}
+.assistant-form-screen>p.hint{display:none}
+.assistant-form-screen .form{background:#fff;border:1px solid #e1e6df;border-radius:21px;padding:20px;gap:19px}
+.assistant-form-screen .form .field{font-size:15px;font-weight:750}
+.assistant-form-screen .form input:not([type=checkbox]),.assistant-form-screen .form select{font-size:19px;min-height:57px;border-radius:13px}
+.assistant-form-screen .form label.check{line-height:1.5;padding:10px 0}
+.assistant-form-screen .form label.check input{width:23px;height:23px;accent-color:#155e4e}
+.assistant-controls{display:flex;gap:12px;margin-top:17px}
+.assistant-controls button{min-height:55px;padding:12px 17px;border:1px solid #ccd8d1;border-radius:15px;background:#fff;color:#285044;font-size:16px;font-weight:750;flex:1}
+.assistant-controls .assistant-next{background:#155e4e;color:#fff;border-color:#155e4e;flex:1.6}
+.assistant-form-screen .assistant-submit{width:100%;background:#155e4e;color:#fff;border:0;min-height:65px;font-size:18px;border-radius:15px}
+.assistant-review{padding:18px;border-radius:16px;background:#edf6f0;display:grid;gap:7px}
+.assistant-review>strong{font-size:18px;color:#194937;margin-bottom:5px}
+.assistant-review-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid #d5e5db;color:#56665b;font-size:14px}
+.assistant-review-row>b{font-variant-numeric:tabular-nums;color:#1f4637;text-align:right}
+.assistant-review-em{font-size:16px;font-weight:750}
+.assistant-review-em>b{font-size:20px;color:#116544}
+.assistant-selection>h2.heading{display:none}
+.assistant-choices{display:grid;gap:14px;padding:10px 0}
+.assistant-choice{background:#fff;color:#193f30;border:1px solid #dae5db;min-height:100px;justify-content:initial;text-align:left}
+.assistant-choice span{display:grid;gap:8px;flex:1}
+.assistant-choice span strong{font-size:18px}
+.assistant-choice span small{color:#668074;font-size:13px;font-weight:500}
+.assistant-selection .assistant-textbutton{background:transparent;border:0;color:#155e4e;font-size:15px;font-weight:750;padding:10px 0}
+.assistant-a .btn:focus-visible,.assistant-a button:focus-visible,.assistant-a input:focus-visible,.assistant-a select:focus-visible{outline:3px solid #61aa91;outline-offset:3px}
+@media(max-width:500px){
+ .assistant-landing{border-radius:20px}
+ .assistant-form-screen .form{padding:16px}
+ .assistant-form-screen .card{padding:15px}
+ .assistant-a .heading{font-size:20px}
+}
+.assistant-secondary{display:block;width:100%;border:1px solid #9db8aa;color:#185542;background:#fff;border-radius:16px;font-weight:800;padding:16px;font-size:16px;min-height:57px;margin-top:12px}
+.assistant-completed .assistant-primary{margin-top:16px}
